@@ -1,35 +1,97 @@
 ---
-title: Home
+title: Assertion-Based Verification Lab Specification
 layout: home
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+##  overview
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+This document details a handshake-based, ready-valid interface protocol for transmitting data from one component of a design (source) to another (sink).
 
-More specifically, the created site:
+In this lab, you will write **SystemVerilog Assertions** to functionally verify the FIFO (First-In, First-Out) buffer shown in Figure 8.
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+## Background
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+The standard approach to verification is to write assertions on the signals being driven by the module of interest (in this case, the outgoing signals of the FIFO: `Ready -> Module A`, `Valid + Data -> Module B`). The behavior of these signals with respect to design expectations lies under the jurisdiction of the FIFO itself.
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+Conversely, from the FIFO's perspective, it will need to make assumptions about its incoming signals, in particular that they are also adhering to the same handshake-based, ready-valid interface protocol.
 
-To get started with creating a site, simply:
+## FIFO Design
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+We will provide a Finite State Machine (FSM) implementation of the FIFO. In order to provide you with a FIFO model to write assertions for, we will model it as an FSM.
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+### Simplifying Assumptions
 
-----
+The FSM implementation is based on the following two simplifying assumptions:
+1.  The depth of the FIFO is **2** (i.e., it can store at most 2 pieces of data at any point in time).
+2.  Data written on a given cycle **cannot** also be read on that same cycle.
+3.  Only **one** piece of data can be read from the FIFO on a given cycle.
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+### FSM Specification
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+* **States:**
+    * `Empty = 2'b01`
+    * `Partial = 2'b11`
+    * `Full = 2'b10`
+
+* **Inputs:** Take the form of `{Write, Read}`
+    * `{0,0}`: `!write & !read`
+    * `{0,1}`: `!write & read`
+    * `{1,0}`: `write & !read`
+    * `{1,1}`: `write & read`
+
+* **Outputs:** Take the form of `{Valid, Ready}`
+    * `{0,1}`: `!valid & ready`
+    * `{1,1}`: `valid & ready`
+    * `{1,0}`: `valid & !ready`
+
+---
+
+## FIFO FSM State Transition Diagram
+
+*(This section is a placeholder for your FSM diagram image.)*
+
+---
+
+## FIFO FSM Encoded State Transition Table
+
+### State Transitions
+
+| Current State | Input `{Write, Read}` | Next State |
+| :--- | :--- | :--- |
+| **{0,1} (Empty)** | {0,0} (!write & !read) | {0,1} (Empty) |
+| **{0,1} (Empty)** | {0,1} (!write & read) | {0,1} (Empty) |
+| **{0,1} (Empty)** | {1,0} (write & !read) | {1,1} (Partial) |
+| **{0,1} (Empty)** | {1,1} (write & read) | {1,1} (Partial) |
+| **{1,1} (Partial)**| {0,0} (!write & !read) | {1,1} (Partial) |
+| **{1,1} (Partial)**| {0,1} (!write & read) | {0,1} (Empty) |
+| **{1,1} (Partial)**| {1,0} (write & !read) | {1,0} (Full) |
+| **{1,1} (Partial)**| {1,1} (write & read) | {1,1} (Partial) |
+| **{1,0} (Full)** | {0,0} (!write & !read) | {1,0} (Full) |
+| **{1,0} (Full)** | {0,1} (!write & read) | {1,1} (Partial) |
+| **{1,0} (Full)** | {1,0} (write & !read) | {1,0} (Full) |
+| **{1,0} (Full)** | {1,1} (write & read) | {1,0} (Full) |
+
+### Outputs
+
+| Current State | Output `{Valid, Ready}` |
+| :--- | :--- |
+| **{0,1} (Empty)** | {0,1} (!valid & ready) |
+| **{1,1} (Partial)**| {1,1} (valid & ready) |
+| **{1,0} (Full)** | {1,0} (valid & !ready) |
+
+> ## Note
+> The current state of the design is itself the output, given this convenient 1:1 mapping of the bit-level representations of the current state and output.
+
+---
+
+## Instructions
+
+Given a Verilog implementation of the above FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol.
+
+A couple of sample assertions are filled in below to get you started.
+
+**FIFO State Transition Assertion (non-overlapping implication):**
+```systemverilog
+// Empty state transitions
+assert property((@posedge clk) disable iff (rst) (state==2'b01 && write && !read)
+  |=> (next_state==2'b11));
