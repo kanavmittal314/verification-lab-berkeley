@@ -7,7 +7,7 @@ layout: home
 
 This lab will help you grow your assertion-based verification knowledge and develop skills like FSM comprehension and assertion writing. Assertion-based verification is an increasingly important step in hardware design, and industry is paying attention. We hope that this assignment will equip you with skills needed to pursue a successful career in hardware verification. In this lab, you will write SystemVerilog Assertions to functionally verify the FIFO buffer shown in Figure 8 of the pre-lab document (copied below for your convenience).
 
-**placeholder**
+!(fifo.png)
 
 ##  Pre-lab
 
@@ -52,7 +52,7 @@ The FSM implementation of the FIFO buffer is based on the following two simplify
 
 ## FIFO FSM State Transition Diagram
 
-*(This section is a placeholder for your FSM diagram image.)*
+!(fifo-fsm.png)
 
 ---
 
@@ -96,12 +96,13 @@ A couple of sample assertions are filled in below to get you started.
 
 **FIFO State Transition Assertion (non-overlapping implication):**
 ```systemverilog
-Empty state transitions
+// Empty state transitions
 assert property((@posedge clk) disable iff (rst) (state==2'b01 && write && !read)
   |=> (next_state==2'b11));
 ```
 
 **Output Assertion (overlapping implication)**:
 ```systemverilog
+// Empty state output
 assert property((@posedge clk) disable iff (rst) (state==2'b01) |-> (!valid && ready));
 ```
