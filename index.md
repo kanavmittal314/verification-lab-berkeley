@@ -14,7 +14,7 @@ This lab will help you grow your assertion-based verification knowledge and deve
 
 ## Parts
 
-Both partners will do the Introduction (which includes a Pre-Lab reading). Then, you will split up. Partner A writes assertions for the Moore FSM of the FIFO buffer, and Partner B for the Mealy FSM. Finally, you will come together for the discussion. Once you are done, a TA will come to check you off.
+Both partners will read the Pre-Lab (if you didn't already read it), answer the associated concept check, and read through the Introduction. Then, you will split up. Partner A writes assertions for the Moore FSM of the FIFO buffer, and Partner B for the Mealy FSM. Finally, you will come together for the discussion. Once you are done, a TA will come to check you off.
 
 - [Pre-Lab (Partners A + B)]({{ site.baseurl }}/prelab)
 - [Introduction (Partners A + B)]({{ site.baseurl }}/introduction)
@@ -24,4 +24,3 @@ Both partners will do the Introduction (which includes a Pre-Lab reading). Then,
 
 ---
 
-Start with the Pre-Lab + Introduction
