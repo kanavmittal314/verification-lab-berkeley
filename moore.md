@@ -4,6 +4,7 @@ layout: page
 nav_order: 2
 ---
 
+# Moore FSM
 
 ## FIFO Design (Moore)
 
@@ -68,6 +69,8 @@ The FIFO buffer is modeled as a Moore Finite State Machine (FSM) with the follow
 > The current state of the design is itself the output, given this convenient 1:1 mapping of the bit-level representations of the current state and output.
 
 ---
+
+# Time to write assertions!
 
 ## Sample assertions
 

@@ -4,7 +4,7 @@ layout: page
 nav_order: 1
 ---
 
-## Pre-lab
+# Pre-lab
 
 Prior to coming into your assigned lab section, you must read through and understand this [pre-lab document](https://inst.eecs.berkeley.edu/~eecs151/fa23/static/resources/ready_valid_interface.pdf), which details a handshake-based, ready-valid interface protocol for transmitting data from one component of a design (source) to another (sink).
 
@@ -12,7 +12,7 @@ Prior to coming into your assigned lab section, you must read through and unders
 
 Concept check question goes here 
 
-## Background
+# Introduction to Assertion-Based Verification
 
 The standard approach to verification is to write assertions on the signals being driven by the module of interest (in this case, the outgoing signals of the FIFO: `Ready -> Module A (Source)`, `Valid + Data -> Module B (Sink)`). The behavior of these signals with respect to design expectations lies under the jurisdiction of the FIFO itself.
 
