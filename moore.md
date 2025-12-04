@@ -4,7 +4,7 @@ layout: page
 nav_order: 3
 ---
 
-# Moore FSM
+# Moore FSM (Partner A)
 
 ## FIFO Design (Moore)
 
@@ -36,11 +36,11 @@ The FIFO buffer is modeled as a Moore Finite State Machine (FSM) with the follow
 
 ---
 
-## Moore FSM State Transition Diagram
+## State Transition Diagram
 
 ![Moore FSM]({{ site.baseurl }}/moore-fsm.png)
 
-## Moore FSM Encoded State Transition Table
+## Encoded State Transition Table
 
 | Current State | Input `{Write, Read}` | Next State |
 | :--- | :--- | :--- |

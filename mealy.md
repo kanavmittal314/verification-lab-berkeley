@@ -4,7 +4,7 @@ layout: page
 nav_order: 4
 ---
 
-# Mealy FSM
+# Mealy FSM (Partner B)
 
 ## FIFO Design (Mealy)
 
