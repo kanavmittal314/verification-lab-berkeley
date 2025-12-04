@@ -1,6 +1,7 @@
 ---
 title: Pre-Lab + Introduction (Partners A + B)
 layout: page
+nav: 1
 ---
 
 ## Pre-lab
