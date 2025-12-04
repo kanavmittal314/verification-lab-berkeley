@@ -20,4 +20,5 @@ Now, you and your partner will split up. Choose one of you to be Partner A and t
 Partner A will write assertions for the Moore FSM, and Partner B will write assertions for the Mealy FSM.
 
 [Go to Moore FSM →]({{ site.baseurl }}/moore)
+
 [Go to Mealy FSM →]({{ site.baseurl }}/mealy)
