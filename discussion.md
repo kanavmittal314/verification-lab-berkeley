@@ -1,7 +1,7 @@
 ---
 title: Discussion (Partners A + B)
 layout: page
-nav_order: 4
+nav_order: 5
 ---
 
 ## Discussion Prompts
@@ -14,3 +14,5 @@ nav_order: 4
 - You and your partner should write a 1-paragraph reflection together addressing the following points:
     - How was the assertion-writing process?
     - How can you improve your assertion-writing skills? Identify weaknesses that you want to work on.
+
+When you are finished, you can check off with a TA.

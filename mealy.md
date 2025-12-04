@@ -1,7 +1,7 @@
 ---
 title: Mealy FSM (Partner B)
 layout: page
-nav_order: 3
+nav_order: 4
 ---
 
 # Mealy FSM

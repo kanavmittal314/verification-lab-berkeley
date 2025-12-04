@@ -1,7 +1,7 @@
 ---
 title: Moore FSM (Partner A)
 layout: page
-nav_order: 2
+nav_order: 3
 ---
 
 # Moore FSM
@@ -95,6 +95,6 @@ What properties do the sample assertions check for?
 
 ## Instructions
 
-Given a Verilog implementation of the above FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. 
+Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. 
 
 
