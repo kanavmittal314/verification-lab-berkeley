@@ -1,8 +1,8 @@
+---
 title: Assertion-Based Verification Lab
 layout: home
 nav_order: 0
 ---
-
 
 # Assertion-Based Verification Lab
 
@@ -12,18 +12,16 @@ This lab will help you grow your assertion-based verification knowledge and deve
 
 ![FIFO diagram]({{ site.baseurl }}/fifo.png)
 
----
 
-## Sidebar
 
-<nav>
-	<ul>
-		<li><a href="{{ site.baseurl }}/introduction">Introduction (Partners A + B)</a></li>
-		<li><a href="{{ site.baseurl }}/moore">Moore FSM (Partner A)</a></li>
-		<li><a href="{{ site.baseurl }}/mealy">Mealy FSM (Partner B)</a></li>
-		<li><a href="{{ site.baseurl }}/discussion">Discussion (Partners A + B)</a></li>
-	</ul>
-</nav>
+## Parts
+
+Both partners will do the Introduction (which includes a Pre-Lab reading)
+
+- [Pre-Lab + Introduction (Partners A + B)]({{ site.baseurl }}/introduction)
+- [Moore FSM (Partner A)]({{ site.baseurl }}/moore)
+- [Mealy FSM (Partner B)]({{ site.baseurl }}/mealy)
+- [Discussion (Partners A + B)]({{ site.baseurl }}/discussion)
 
 ---
 

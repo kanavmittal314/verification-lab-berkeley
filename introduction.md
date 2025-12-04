@@ -1,7 +1,9 @@
-title: Introduction (Partners A + B)
-layout: page
-nav_order: 1
 ---
+title: Pre-Lab + Introduction (Partners A + B)
+layout: page
+---
+
+
 
 ## Pre-lab
 
@@ -9,9 +11,9 @@ Prior to coming into your assigned lab section, you must read through and unders
 
 ## Concept Check
 
+Concept check question goes here 
 
-
-## Intro to Verification
+## Background
 
 The standard approach to verification is to write assertions on the signals being driven by the module of interest (in this case, the outgoing signals of the FIFO: `Ready -> Module A (Source)`, `Valid + Data -> Module B (Sink)`). The behavior of these signals with respect to design expectations lies under the jurisdiction of the FIFO itself.
 
@@ -24,5 +26,4 @@ Now, you and your partner will split up. Choose one of you to be Partner A and t
 Partner A will write assertions for the Moore FSM, and Partner B will write assertions for the Mealy FSM.
 
 [Go to Moore FSM →]({{ site.baseurl }}/moore)
-
 [Go to Mealy FSM →]({{ site.baseurl }}/mealy)
