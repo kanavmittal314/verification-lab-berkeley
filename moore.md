@@ -1,6 +1,6 @@
----
 title: Moore FSM (Partner A)
 layout: page
+nav_order: 2
 ---
 
 

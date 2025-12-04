@@ -1,6 +1,6 @@
----
 title: Mealy FSM (Partner B)
 layout: page
+nav_order: 3
 ---
 
 ## Mealy FSM State Transition Diagram
