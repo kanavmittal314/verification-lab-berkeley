@@ -4,7 +4,7 @@ layout: page
 nav_order: 5
 ---
 
-## Discussion Prompts
+# Discussion
 
 **Discuss with your partner:**
 - What does each assertion check for? Why is it important that we have that assertion? Your TA will ask you to explain a couple of the assertions you wrote during check-off.
