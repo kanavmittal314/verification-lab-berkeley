@@ -1,3 +1,4 @@
+---
 title: Mealy FSM (Partner B)
 layout: page
 nav_order: 3
@@ -27,8 +28,19 @@ nav_order: 3
 
 ---
 
+## Sample assertions
+
+A couple of sample assertions are filled in below to get you started.
+
+TODO
+
+## Check your understanding
+
+What properties do the sample assertions check for?
+
 ## Instructions
 
 Given a Verilog implementation of the Mealy FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document.
 
+A couple of sample assertions are filled in below to get you started.
 <!-- Add Mealy-specific assertion examples here if available -->

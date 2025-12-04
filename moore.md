@@ -1,3 +1,4 @@
+---
 title: Moore FSM (Partner A)
 layout: page
 nav_order: 2
@@ -68,9 +69,7 @@ The FIFO buffer is modeled as a Moore Finite State Machine (FSM) with the follow
 
 ---
 
-## Instructions
-
-Given a Verilog implementation of the above FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. 
+## Sample assertions
 
 A couple of sample assertions are filled in below to get you started.
 
@@ -86,3 +85,13 @@ assert property((@posedge clk) disable iff (rst) (state==2'b01 && write && !read
 // Empty state output
 assert property((@posedge clk) disable iff (rst) (state==2'b01) |-> (!valid && ready));
 ```
+
+## Check your understanding
+
+What properties do the sample assertions check for?
+
+## Instructions
+
+Given a Verilog implementation of the above FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. 
+
+
