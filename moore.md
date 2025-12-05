@@ -34,8 +34,6 @@ The FIFO buffer is modeled as a Moore Finite State Machine (FSM) with the follow
     * `{1,1}`: `valid & ready`
     * `{1,0}`: `valid & !ready`
 
----
-
 ## State Transition Diagram
 
 ![Moore FSM]({{ site.baseurl }}/moore-fsm.png)
@@ -68,6 +66,11 @@ The FIFO buffer is modeled as a Moore Finite State Machine (FSM) with the follow
 > ## Note
 > The current state of the design is itself the output, given this convenient 1:1 mapping of the bit-level representations of the current state and output.
 
+
+## Instructions
+
+Fill in the blank cells in the above state transition and outputs tables. This will later help you when you write assertions!
+
 ---
 
 # Time to write assertions!
@@ -95,6 +98,6 @@ What properties do the sample assertions check for?
 
 ## Instructions
 
-Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. 
+Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. It may be a good idea to write one assertion per row in the tables above.      
 
 
