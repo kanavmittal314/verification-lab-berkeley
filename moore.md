@@ -98,6 +98,103 @@ What properties do the sample assertions check for?
 
 ## Instructions
 
-Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. It may be a good idea to write one assertion per row in the tables above.      
+Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. It may be a good idea to write one assertion per row in the tables above.    
+
+Paste the following code into `design.sv` in EDA Playground. You will write your assertions at the end of this. 
+
+```
+module fifo_fsm (
+    input  logic clk,
+    input  logic rst,
+    input  logic write,      // Write request from source
+    input  logic read,       // Read request from sink
+    output logic valid,      // Data valid output
+    output logic ready,      // Ready to accept data output
+    output logic [7:0] data  // 8-bit data output
+);
+
+    // State encoding
+    typedef enum logic [1:0] {
+        EMPTY   = 2'b01,
+        PARTIAL = 2'b11,
+        FULL    = 2'b10
+    } state_t;
+
+    state_t current_state, next_state;
+
+    // FSM Logic
+    always_comb begin
+        next_state = current_state;
+       
+        case (current_state)
+            EMPTY: begin
+                if (write && !read)
+                    next_state = PARTIAL;
+                else if (write && read)
+                  next_state = PARTIAL;
+                else
+                    next_state = EMPTY;
+            end
+            PARTIAL: begin
+                if (write && !read)
+                    next_state = FULL;
+                else if (!write && read)
+                    next_state = EMPTY;
+                else
+                    next_state = PARTIAL;
+            end
+            FULL: begin
+                if (!write && read)
+                    next_state = PARTIAL;
+                else
+                    next_state = FULL;
+            end
+            default:
+                next_state = EMPTY;
+        endcase
+    end
+
+    // State register
+    always_ff @(posedge clk) begin
+        if (rst)
+            current_state <= EMPTY;
+        else
+            current_state <= next_state;
+    end
+
+    // Output logic (Moore FSM)
+    always_comb begin
+        case (current_state)
+            EMPTY: begin
+                valid = 1'b0;
+                ready = 1'b1;
+            end
+            PARTIAL: begin
+                valid = 1'b1;
+                ready = 1'b1;
+            end
+            FULL: begin
+                valid = 1'b1;
+                ready = 1'b0;
+            end
+            default: begin
+                valid = 1'b0;
+                ready = 1'b1;
+            end
+        endcase
+    end
+
+    // Simple data register (increments on write)
+    always_ff @(posedge clk) begin
+        if (rst)
+            data <= 8'b0;
+        else if (write && ready)
+            data <= data + 1;
+    end
+
+// TODO: Add your assertions here!
+
+endmodule
+```
 
 
