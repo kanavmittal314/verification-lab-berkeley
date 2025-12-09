@@ -11,7 +11,7 @@ The standard approach to verification is to write assertions on the signals bein
 Conversely, from the FIFO's perspective, it will need to make assumptions about its incoming signals, in particular that they are also adhering to the same handshake-based, ready-valid interface protocol.
 
 ## Writing assertions
-Assertions are written in SystemVerilog. We encourage you to look over [this guide to writing SVA assertions](https://www.systemverilog.io/verification/sva-basics/) and refer back to it when you are writing assertions.
+Assertions are written in SystemVerilog. We encourage you to look over [the EECS151 FA25 guest lecture from Apple on SystemVerilog assertions (SVA)](https://inst.eecs.berkeley.edu/~eecs151/fa25/static/lectures/lec18.pdf) and [this guide to writing SVA](https://www.systemverilog.io/verification/sva-basics/) and refer back to it when you are writing assertions.
 
 ## Running assertions
 The way in which we run SystemVerilog Assertions on the design is by placing them in the SystemVerilog file for the FSM design itself, writing a testbench file that specifies the clock and is capable of feeding test stimulus to the design, and finally running the testbench file against the design file to simulate the design running under a predefined clock and check whether the SVA written pass on the design. For this lab, you will add your SVA to a SystemVerilog file containing the FSM design in [https://www.edaplayground.com/](EDA Playground).
