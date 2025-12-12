@@ -7,7 +7,7 @@ nav_order: 5
 # Discussion
 
 **Discuss with your partner:**
-- What does each assertion check for? Why is it important that we have that assertion? Your TA will ask you to explain a couple of the assertions you wrote during check-off.
+- What does each assertion check for? Why is it important that we have that assertion? Your TA will ask you to explain a couple of the assertions you wrote or your partner wrote during check-off
 - What similarities and differences do you see between the assertions written for the Moore implementation vs. the assertions written for the Mealy implementation?
 
 **Complete with your partner:**

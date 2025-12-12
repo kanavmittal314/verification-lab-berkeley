@@ -79,17 +79,16 @@ Fill in the blank cells in the above state transition and outputs tables. This w
 
 A couple of sample assertions are filled in below to get you started.
 
-**FIFO State Transition Assertion (non-overlapping implication):**
-```systemverilog
+**FIFO State Transition Assertion (overlapping implication):**
+```
 // Empty state transitions
-assert property((@posedge clk) disable iff (rst) (state==2'b01 && write && !read)
-  |=> (next_state==2'b11));
+assert property (@(posedge clk) disable iff (rst) (current_state==EMPTY && write && !read) |-> (next_state==PARTIAL) ) else $error("Incorrect empty state transition 1");
 ```
 
-**Output Assertion (overlapping implication)**:
-```systemverilog
+**Output Assertion (overlapping implication):**:
+```
 // Empty state output
-assert property((@posedge clk) disable iff (rst) (state==2'b01) |-> (!valid && ready));
+assert property(@(posedge clk) disable iff (rst) (current_state==EMPTY) |-> (!valid && ready)) else $error("Incorrect empty output");
 ```
 
 ## Check your understanding
@@ -98,11 +97,15 @@ What properties do the sample assertions check for?
 
 ## Instructions
 
-Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. It may be a good idea to write one assertion per row in the tables above.    
+Given a Verilog implementation of the Moore FIFO FSM, write a comprehensive set of assertions that verify the state transitions, output, and interface protocol as outlined in the pre-lab document. It may be a good idea to write one assertion per row in the tables above, but you may also be able to write one assertion that covers multiple rows through Boolean logic simplification.    
 
-Paste the following code into `design.sv` in EDA Playground. You will write your assertions at the end of this. 
+You will write your assertions through the [Moore EDA Playground](https://edaplayground.com/x/XiZQ). Write them at the bottom of `design.sv`. You can copy over the sample assertions above as a first step. You can click `Run` to see if your assertions pass. You will need all of your assertions to pass for full credit.
+
+If the EDA Playground is not working, paste the following code into `design.sv` in EDA Playground. You will write your assertions at the end of this. 
 
 ```
+// Moore Implementation
+
 module fifo_fsm (
     input  logic clk,
     input  logic rst,
@@ -197,4 +200,69 @@ module fifo_fsm (
 endmodule
 ```
 
+Then, paste the following SystemVerilog code in `testbench.sv`.
 
+```
+// Test module with assertions
+module tb_fifo_fsm;
+    logic clk, rst;
+    logic write, read;
+    logic valid, ready;
+    logic [7:0] data;
+
+    fifo_fsm dut (
+        .clk(clk),
+        .rst(rst),
+        .write(write),
+        .read(read),
+        .valid(valid),
+        .ready(ready),
+        .data(data)
+    );
+
+    // Clock generation
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
+
+    // Test stimulus
+    initial begin
+        // Reset
+        rst = 1;
+        write = 0;
+        read = 0;
+        repeat (2) @(posedge clk);
+        rst = 0;
+
+        // Test sequence: write to partial, attempt write when full, read
+        repeat (1) @(posedge clk);
+        write = 1;
+        repeat (2) @(posedge clk);
+        write = 0;
+        repeat (1) @(posedge clk);
+        read = 1;
+        repeat (2) @(posedge clk);
+        read = 0;
+        repeat (2) @(posedge clk);
+
+        $finish;
+    end
+   
+endmodule
+```
+
+On the left sidebar, make sure the following settings are chosen:
+
+- Languages & Libraries
+    - Testbench + Design: SystemVerilog/Verilog
+    - UVM/OVM: None
+    - Other Libraries: None
+    - Enable TL-Verilog: Not checked
+    - Enable Easier UVM: Not checked
+    - Enable VUnit: Not checked
+- Tools & Simulators
+    - Select Synopsys VCS 2023.03
+    - Open EPWave after run: Not checked
+    - Show output file after run: Not checked
+    - Download files after run: Not checked
